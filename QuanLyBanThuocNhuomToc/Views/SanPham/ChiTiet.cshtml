@@ -1,0 +1,61 @@
+﻿@model QuanLyBanThuocNhuomToc.Models.SanPham
+
+@{
+    ViewData["Title"] = Model.TenSanPham;
+}
+
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+            <li class="breadcrumb-item"><a asp-controller="SanPham" asp-action="Index">Sản phẩm</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.TenSanPham</li>
+        </ol>
+    </nav>
+
+    <div class="row mt-4">
+        <div class="col-md-5">
+            <div class="card border-0 shadow-sm p-3 text-center bg-light">
+                <h1 class="display-1 text-secondary">🎨</h1>
+                <span class="badge bg-primary fs-6">@Model.DanhMucSanPham?.TenDanhMuc</span>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <h2 class="fw-bold text-dark">@Model.TenSanPham</h2>
+            <p class="text-muted">@Model.MoTaSanPham</p>
+            <hr />
+            <h4 class="text-danger fw-bold mb-3">Giá bán: @Model.GiaBan.ToString("N0") VNĐ</h4>
+            <p><strong>Mã màu:</strong> <span class="badge bg-secondary">@(string.IsNullOrEmpty(Model.MaMau) ? "Không có" : Model.MaMau)</span></p>
+            <p><strong>Tình trạng:</strong> <span class="text-success">Còn lại @Model.SoLuongTon sản phẩm</span></p>
+
+            <div class="mt-4">
+                <a href="#" class="btn btn-success btn-lg px-4">🛒 Thêm vào giỏ hàng</a>
+                <a asp-action="Index" class="btn btn-outline-secondary btn-lg ms-2">Quay lại danh sách</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Khu vực đánh giá sản phẩm -->
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <h4 class="fw-bold mb-3">Đánh giá từ khách hàng</h4>
+            @if (Model.DanhGias != null && Model.DanhGias.Any())
+            {
+                foreach (var dg in Model.DanhGias)
+                {
+                    <div class="card mb-3 border-0 shadow-sm">
+                        <div class="card-body">
+                            <h6 class="fw-bold text-primary">@dg.NguoiDung?.HoTen <span class="text-warning">(@dg.SoSao ⭐)</span></h6>
+                            <p class="mb-1">@dg.BinhLuan</p>
+                            <small class="text-muted">Ngày đánh giá: @dg.NgayDanhGia.ToString("dd/MM/yyyy HH:mm")</small>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">Chưa có đánh giá nào cho sản phẩm này.</p>
+            }
+        </div>
+    </div>
+</div>

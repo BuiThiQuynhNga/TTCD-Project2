@@ -1,0 +1,94 @@
+﻿@model IEnumerable<QuanLyBanThuocNhuomToc.Models.SanPham>
+
+@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+<!-- Banner -->
+<div class="hero text-center text-white">
+    <div class="container">
+        <h1 class="display-4 fw-bold">THUỐC NHUỘM TÓC CHUẨN SALON</h1>
+        <p class="lead">
+            Màu nhuộm thời trang • Chính hãng • An toàn cho tóc
+        </p>
+
+        <a asp-controller="SanPham"
+           asp-action="Index"
+           class="btn btn-warning btn-lg mt-3">
+            Xem Sản Phẩm
+        </a>
+    </div>
+</div>
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">SẢN PHẨM NỔI BẬT</h2>
+        <hr class="w-25 mx-auto">
+    </div>
+
+    <div class="row g-4">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6">
+
+                <div class="card h-100 product shadow-sm">
+
+                    <img src="~/images/@(string.IsNullOrEmpty(item.HinhAnh) ? "no-image.png" : item.HinhAnh)"
+                         class="card-img-top"
+                         style="height:280px;object-fit:cover;"
+                         alt="@item.TenSanPham" />
+
+                    <div class="card-body">
+
+                        <h5 class="fw-bold">
+                            @item.TenSanPham
+                        </h5>
+
+                        <p class="text-muted">
+                            @if (!string.IsNullOrEmpty(item.MoTaSanPham))
+                            {
+                                @(item.MoTaSanPham.Length > 80
+                                    ? item.MoTaSanPham.Substring(0, 80) + "..."
+                                    : item.MoTaSanPham)
+                            }
+                            else
+                            {
+                                <span>Chưa có mô tả.</span>
+                            }
+                        </p>
+
+                        <h4 class="text-danger fw-bold">
+                            @item.GiaBan.ToString("N0") VNĐ
+                        </h4>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+
+                        <div class="d-grid gap-2">
+
+                            <a asp-controller="SanPham"
+                               asp-action="Details"
+                               asp-route-id="@item.MaSanPham"
+                               class="btn btn-primary">
+                                Chi Tiết
+                            </a>
+
+                            <button class="btn btn-success">
+                                🛒 Thêm Giỏ Hàng
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

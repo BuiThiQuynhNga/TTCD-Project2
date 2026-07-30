@@ -1,0 +1,32 @@
+﻿@model IEnumerable<QuanLyBanThuocNhuomToc.Models.SanPham>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm thuốc nhuộm tóc";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center text-primary font-weight-bold">DANH SÁCH THUỐC NHUỘM TÓC & PHỤ KIỆN</h2>
+
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <span class="badge bg-info text-dark mb-2">@item.DanhMucSanPham?.TenDanhMuc</span>
+                        <h5 class="card-title text-dark font-weight-bold">@item.TenSanPham</h5>
+                        <p class="card-text text-muted small">@item.MoTaSanPham</p>
+                        <ul class="list-unstyled mb-3">
+                            <li><strong>Mã màu:</strong> <span class="text-danger">@(string.IsNullOrEmpty(item.MaMau) ? "N/A" : item.MaMau)</span></li>
+                            <li><strong>Giá bán:</strong> <span class="text-success font-weight-bold">@item.GiaBan.ToString("N0") VNĐ</span></li>
+                            <li><strong>Tồn kho:</strong> @item.SoLuongTon sản phẩm</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer bg-white border-top-0">
+                        <a asp-action="ChiTiet" asp-route-id="@item.MaSanPham" class="btn btn-outline-primary btn-sm w-100">Xem chi tiết</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
