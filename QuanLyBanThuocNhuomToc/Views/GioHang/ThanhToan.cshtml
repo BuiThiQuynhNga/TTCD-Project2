@@ -1,0 +1,80 @@
+﻿@model QuanLyBanThuocNhuomToc.Models.DonHang
+
+@{
+    ViewData["Title"] = "Thanh toán";
+}
+
+<div class="container py-4">
+    <h3 class="mb-4">Thanh Toán Đơn Hàng</h3>
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <form asp-action="ThanhToan" method="post">
+        <div class="mb-3">
+            <label class="form-label">Địa chỉ giao hàng</label>
+            <input name="diaChiGiaoHang" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Số điện thoại nhận hàng</label>
+            <input name="soDienThoaiNhan" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Hình thức thanh toán</label>
+            <div class="card border-success">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <input type="radio" checked disabled class="form-check-input mt-0" />
+                    <div>
+                        <strong>💵 Thanh toán khi nhận hàng (COD)</strong>
+                        <p class="text-muted small mb-0">Bạn thanh toán tiền mặt trực tiếp cho nhân viên giao hàng khi nhận sản phẩm.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="list-group mb-3">
+            @foreach (var ct in Model.ChiTietDonHangs)
+            {
+                bool khongDu = ct.SoLuong > ct.SanPham.SoLuongTon;
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <span>@ct.SanPham.TenSanPham (x@(ct.SoLuong))</span>
+                        <span>@((ct.DonGia * ct.SoLuong).ToString("N0")) đ</span>
+                    </div>
+                    @if (khongDu)
+                    {
+                        <div class="text-danger small mt-1">⚠️ Chỉ còn @ct.SanPham.SoLuongTon sản phẩm trong kho</div>
+                    }
+                </li>
+            }
+        </ul>
+
+        @{
+            bool coSanPhamThieuHang = Model.ChiTietDonHangs.Any(ct => ct.SoLuong > ct.SanPham.SoLuongTon);
+        }
+        @if (coSanPhamThieuHang)
+        {
+            <div class="alert alert-danger">
+                Một số sản phẩm trong đơn không đủ hàng trong kho. Vui lòng quay lại giỏ hàng để cập nhật số lượng trước khi đặt hàng.
+            </div>
+        }
+
+        <div class="d-flex justify-content-between mb-2">
+            <span>Phí vận chuyển:</span>
+            @if (Model.PhiShip > 0)
+            {
+                <span>@Model.PhiShip.ToString("N0") đ</span>
+            }
+            else
+            {
+                <span class="text-success">Miễn phí</span>
+            }
+        </div>
+
+        <h5>Tổng tiền: @Model.TongTien.ToString("N0") đ</h5>
+
+        <button type="submit" class="btn btn-success" disabled="@(coSanPhamThieuHang ? "disabled" : null)">
+            Xác nhận đặt hàng
+        </button>
+    </form>
+</div>

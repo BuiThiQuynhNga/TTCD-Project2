@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="menu">
 
                 <!-- Menu trái -->
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-lg-2">
 
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Home" asp-action="Index">
@@ -51,16 +51,25 @@
                         </a>
                     </li>
 
+                    @if (User.Identity != null && User.Identity.IsAuthenticated && User.IsInRole("Quản trị"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="DonHang" asp-action="Index">
+                                <i class="bi bi-cart-check"></i> Đơn hàng
+                            </a>
+                        </li>
+                    }
+
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="DonHang" asp-action="Index">
-                            <i class="bi bi-cart-check"></i> Đơn hàng
+                        <a class="nav-link" asp-controller="MaGiamGia" asp-action="Index">
+                            <i class="bi bi-tag"></i> Mã giảm giá
                         </a>
                     </li>
 
                 </ul>
 
                 <!-- Tìm kiếm -->
-                <form class="d-flex me-3"
+                <form class="d-flex me-3 mb-2 mb-lg-0"
                       asp-controller="SanPham"
                       asp-action="Index"
                       method="get">
@@ -79,10 +88,11 @@
                 <!-- Giỏ hàng -->
                 <a asp-controller="GioHang"
                    asp-action="Index"
-                   class="btn btn-outline-light me-3">
+                   class="btn btn-outline-light me-3 mb-2 mb-lg-0 position-relative">
 
                     <i class="bi bi-cart3"></i>
                     Giỏ hàng
+                    @await Component.InvokeAsync("GioHangCount")
 
                 </a>
 
@@ -127,11 +137,9 @@
 
                                 <li>
                                     <a class="dropdown-item"
-                                       asp-controller="SanPham"
+                                       asp-controller="AdminSanPham"
                                        asp-action="Index">
-
                                         Quản lý sản phẩm
-
                                     </a>
                                 </li>
 
@@ -152,6 +160,14 @@
 
                                         Quản lý đơn hàng
 
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item"
+                                       asp-controller="MaGiamGia"
+                                       asp-action="QuanLy">
+                                        Quản lý mã giảm giá
                                     </a>
                                 </li>
                             }
@@ -176,7 +192,7 @@
                 {
                     <a asp-controller="TaiKhoan"
                        asp-action="DangNhap"
-                       class="btn btn-outline-light me-2">
+                       class="btn btn-outline-light me-2 mb-2 mb-lg-0">
 
                         Đăng nhập
 

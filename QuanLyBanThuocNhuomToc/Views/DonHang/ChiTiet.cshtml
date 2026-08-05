@@ -1,0 +1,40 @@
+﻿@model QuanLyBanThuocNhuomToc.Models.DonHang
+
+@{
+    ViewData["Title"] = "Chi tiết đơn hàng";
+}
+
+<div class="container py-4">
+    <h3 class="fw-bold mb-4">Chi Tiết Đơn Hàng #@Model.MaDonHang</h3>
+
+    <p><strong>Khách hàng:</strong> @Model.NguoiDung?.HoTen</p>
+    <p><strong>Địa chỉ giao hàng:</strong> @Model.DiaChiGiaoHang</p>
+    <p><strong>SĐT nhận hàng:</strong> @Model.SoDienThoaiNhan</p>
+    <p><strong>Trạng thái:</strong> <span class="badge bg-info text-dark">@Model.TrangThaiDonHang</span></p>
+
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Sản phẩm</th>
+                <th>Đơn giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ct in Model.ChiTietDonHangs)
+            {
+                <tr>
+                    <td>@ct.SanPham.TenSanPham</td>
+                    <td>@ct.DonGia.ToString("N0") đ</td>
+                    <td>@ct.SoLuong</td>
+                    <td>@((ct.DonGia * ct.SoLuong).ToString("N0")) đ</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h5 class="text-end text-danger fw-bold">Tổng tiền: @Model.TongTien.ToString("N0") đ</h5>
+
+    <a asp-action="LichSu" class="btn btn-outline-secondary mt-3">← Quay lại</a>
+</div>

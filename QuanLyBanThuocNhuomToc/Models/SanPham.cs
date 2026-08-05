@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace QuanLyBanThuocNhuomToc.Models
 {
@@ -10,7 +11,9 @@ namespace QuanLyBanThuocNhuomToc.Models
         public int MaSanPham { get; set; }
 
         public int MaDanhMuc { get; set; }
+
         [ForeignKey("MaDanhMuc")]
+        [ValidateNever]
         public DanhMucSanPham DanhMucSanPham { get; set; } = null!;
 
         [Required]
@@ -30,7 +33,10 @@ namespace QuanLyBanThuocNhuomToc.Models
 
         public string? MoTaSanPham { get; set; }
 
+        [ValidateNever]
         public ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
+
+        [ValidateNever]
         public ICollection<DanhGia> DanhGias { get; set; } = new List<DanhGia>();
     }
 }

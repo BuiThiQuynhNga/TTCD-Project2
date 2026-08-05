@@ -7,6 +7,7 @@ D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\QuanLyBanThuocNhuomToc.MvcApplicationPartsAssemblyInfo.cache
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\QuanLyBanThuocNhuomToc.RazorAssemblyInfo.cache
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\QuanLyBanThuocNhuomToc.RazorAssemblyInfo.cs
+D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\QuanLyBanThuocNhuomToc.sourcelink.json
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\bin\Debug\net8.0\appsettings.Development.json
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\bin\Debug\net8.0\appsettings.json
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\bin\Debug\net8.0\QuanLyBanThuocNhuomToc.staticwebassets.runtime.json
@@ -138,10 +139,10 @@ D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\staticwebassets.development.json
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\swae.build.ex.cache
-D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\QuanLyBa.035AF6E5.Up2Date
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\QuanLyBanThuocNhuomToc.dll
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\refint\QuanLyBanThuocNhuomToc.dll
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\QuanLyBanThuocNhuomToc.pdb
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\QuanLyBanThuocNhuomToc.genruntimeconfig.cache
 D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\ref\QuanLyBanThuocNhuomToc.dll
+D:\CNTT\Project2\QuanLyBanThuocNhuomToc\QuanLyBanThuocNhuomToc\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

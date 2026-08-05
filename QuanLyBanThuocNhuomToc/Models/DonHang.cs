@@ -21,7 +21,8 @@ namespace QuanLyBanThuocNhuomToc.Models
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal TongTien { get; set; }
-
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal PhiShip { get; set; } = 0;
         [StringLength(50)]
         public string TrangThaiDonHang { get; set; } = "Chờ xác nhận";
 
@@ -32,6 +33,7 @@ namespace QuanLyBanThuocNhuomToc.Models
         [Required]
         [StringLength(15)]
         public string SoDienThoaiNhan { get; set; } = string.Empty;
+
 
         public ICollection<ChiTietDonHang> ChiTietDonHangs { get; set; } = new List<ChiTietDonHang>();
     }

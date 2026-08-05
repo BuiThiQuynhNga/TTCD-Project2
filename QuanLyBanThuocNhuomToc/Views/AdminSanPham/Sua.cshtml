@@ -1,139 +1,216 @@
 ﻿@model QuanLyBanThuocNhuomToc.Models.SanPham
 
 @{
-    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+    ViewData["Title"] = "Sửa sản phẩm";
+    var danhMucList = ViewBag.DanhMucList as List<QuanLyBanThuocNhuomToc.Models.DanhMucSanPham>;
 }
 
-<div class="container py-4">
+<style>
+    .spf-page {
+        --hd-primary: #2F5D62;
+        --hd-primary-dark: #22454A;
+        --hd-accent: #C97B4A;
+        --hd-bg: #F7F7F5;
+        --hd-card: #FFFFFF;
+        --hd-text: #24262B;
+        --hd-muted: #6B7076;
+        --hd-border: #E7E5E1;
+        padding: 40px 0 60px;
+    }
 
-    <div class="card shadow border-0">
+    .spf-eyebrow {
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--hd-muted);
+        font-weight: 600;
+    }
 
-        <div class="card-header bg-warning text-dark">
-            <h3 class="mb-0">
-                <i class="bi bi-pencil-square"></i>
-                Chỉnh sửa sản phẩm
-            </h3>
-        </div>
+    .spf-title {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: var(--hd-text);
+        margin: 4px 0 24px;
+    }
 
-        <div class="card-body">
+    .spf-card {
+        background: var(--hd-card);
+        border: 1px solid var(--hd-border);
+        border-radius: 16px;
+        padding: 32px;
+        max-width: 600px;
+    }
 
-            <form asp-action="Sua" method="post">
+    .spf-preview {
+        margin-bottom: 20px;
+    }
 
-                <input type="hidden" asp-for="MaSanPham" />
+        .spf-preview img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid var(--hd-border);
+            display: block;
+        }
 
-                <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+    .spf-group {
+        margin-bottom: 18px;
+    }
 
-                <div class="row">
+    .spf-label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--hd-text);
+        margin-bottom: 6px;
+    }
 
-                    <!-- Cột trái -->
-                    <div class="col-md-6">
+    .spf-input,
+    .spf-select {
+        width: 100%;
+        border: 1px solid var(--hd-border);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 0.92rem;
+        color: var(--hd-text);
+        background: #fff;
+        transition: border-color .15s ease;
+    }
 
-                        <div class="mb-3">
-                            <label asp-for="TenSanPham" class="form-label fw-bold"></label>
-                            <input asp-for="TenSanPham" class="form-control" />
-                            <span asp-validation-for="TenSanPham" class="text-danger"></span>
-                        </div>
+        .spf-input:focus,
+        .spf-select:focus {
+            outline: none;
+            border-color: var(--hd-primary);
+        }
 
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Danh mục</label>
-                            <select asp-for="MaDanhMuc"
-                                    asp-items="ViewBag.MaDanhMuc"
-                                    class="form-select">
-                            </select>
-                        </div>
+    .spf-hint {
+        font-size: 0.78rem;
+        color: var(--hd-muted);
+        margin-top: 4px;
+        display: block;
+    }
 
-                        <div class="mb-3">
-                            <label asp-for="MaMau" class="form-label fw-bold"></label>
-                            <input asp-for="MaMau" class="form-control" />
-                        </div>
+    .spf-err {
+        color: #C0524A;
+        font-size: 0.8rem;
+        margin-top: 4px;
+        display: block;
+    }
 
-                        <div class="mb-3">
-                            <label asp-for="GiaBan" class="form-label fw-bold"></label>
-                            <input asp-for="GiaBan" class="form-control" type="number" step="0.01" />
-                        </div>
+    .spf-summary {
+        color: #C0524A;
+        font-size: 0.85rem;
+        margin-bottom: 16px;
+    }
 
-                    </div>
+    .spf-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 24px;
+    }
 
-                    <!-- Cột phải -->
-                    <div class="col-md-6">
+    .spf-btn {
+        border: none;
+        border-radius: 8px;
+        padding: 10px 22px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background .15s ease, color .15s ease, border-color .15s ease;
+    }
 
-                        <div class="mb-3">
-                            <label asp-for="SoLuongTon" class="form-label fw-bold"></label>
-                            <input asp-for="SoLuongTon" class="form-control" type="number" />
-                        </div>
+        .spf-btn.save {
+            background: var(--hd-primary);
+            color: #fff;
+        }
 
-                        <div class="mb-3">
-                            <label asp-for="HinhAnh" class="form-label fw-bold"></label>
-                            <input asp-for="HinhAnh"
-                                   class="form-control"
-                                   id="HinhAnh" />
-                        </div>
+            .spf-btn.save:hover {
+                background: var(--hd-primary-dark);
+            }
 
-                        <div class="text-center mb-3">
+        .spf-btn.cancel {
+            background: transparent;
+            border: 1.5px solid var(--hd-border);
+            color: var(--hd-text);
+        }
 
-                            <img id="preview"
-                                 src="~/images/@(string.IsNullOrEmpty(Model.HinhAnh) ? "no-image.png" : Model.HinhAnh)"
-                                 class="img-thumbnail"
-                                 style="width:220px;height:220px;object-fit:cover;"
-                                 onerror="this.src='/images/no-image.png'" />
+            .spf-btn.cancel:hover {
+                border-color: var(--hd-primary);
+                color: var(--hd-primary);
+            }
+</style>
 
-                        </div>
+<div class="container spf-page">
+    <div class="spf-eyebrow">Vận hành</div>
+    <h1 class="spf-title">Sửa sản phẩm</h1>
 
-                    </div>
+    <div class="spf-card">
+        <form asp-action="Sua" asp-route-id="@Model.MaSanPham" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="MaSanPham" />
+            <input type="hidden" asp-for="HinhAnh" />
+            <div asp-validation-summary="ModelOnly" class="spf-summary"></div>
 
+            @if (!string.IsNullOrEmpty(Model.HinhAnh))
+            {
+                <div class="spf-preview">
+                    <img src="~/images/@Model.HinhAnh" onerror="this.src='/images/no-image.png'" />
                 </div>
+            }
 
-                <div class="mb-3">
+            <div class="spf-group">
+                <label asp-for="TenSanPham" class="spf-label">Tên sản phẩm</label>
+                <input asp-for="TenSanPham" class="spf-input" />
+                <span asp-validation-for="TenSanPham" class="spf-err"></span>
+            </div>
 
-                    <label asp-for="MoTaSanPham" class="form-label fw-bold"></label>
+            <div class="spf-group">
+                <label asp-for="MaDanhMuc" class="spf-label">Danh mục</label>
+                <select asp-for="MaDanhMuc" class="spf-select">
+                    @foreach (var dm in danhMucList ?? new())
+                    {
+                        <option value="@dm.MaDanhMuc" selected="@(dm.MaDanhMuc == Model.MaDanhMuc)">@dm.TenDanhMuc</option>
+                    }
+                </select>
+                <span asp-validation-for="MaDanhMuc" class="spf-err"></span>
+            </div>
 
-                    <textarea asp-for="MoTaSanPham"
-                              class="form-control"
-                              rows="5">
-                    </textarea>
+            <div class="spf-group">
+                <label asp-for="MaMau" class="spf-label">Mã màu</label>
+                <input asp-for="MaMau" class="spf-input" />
+            </div>
 
-                </div>
+            <div class="spf-group">
+                <label asp-for="GiaBan" class="spf-label">Giá bán (VNĐ)</label>
+                <input asp-for="GiaBan" class="spf-input" type="number" step="1000" />
+                <span asp-validation-for="GiaBan" class="spf-err"></span>
+            </div>
 
-                <hr />
+            <div class="spf-group">
+                <label asp-for="SoLuongTon" class="spf-label">Số lượng tồn</label>
+                <input asp-for="SoLuongTon" class="spf-input" type="number" />
+                <span asp-validation-for="SoLuongTon" class="spf-err"></span>
+            </div>
 
-                <button class="btn btn-warning px-4">
-                    <i class="bi bi-save"></i>
-                    Cập nhật
-                </button>
+            <div class="spf-group">
+                <label class="spf-label">Đổi hình ảnh</label>
+                <input type="file" name="anhUpload" class="spf-input" accept="image/*" />
+                <span class="spf-hint">Bỏ trống nếu giữ ảnh cũ</span>
+            </div>
 
-                <a asp-action="Index"
-                   class="btn btn-secondary px-4">
-
-                    <i class="bi bi-arrow-left"></i>
-
-                    Quay lại
-
-                </a>
-
-            </form>
-
-        </div>
-
+            <div class="spf-actions">
+                <button type="submit" class="spf-btn save">Cập nhật</button>
+                <a asp-action="Index" class="spf-btn cancel">Hủy</a>
+            </div>
+        </form>
     </div>
-
 </div>
 
 @section Scripts {
-
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-
-    <script>
-
-        document.getElementById("HinhAnh")
-            .addEventListener("keyup", function () {
-
-                document.getElementById("preview").src =
-                    "/images/" + this.value;
-
-            });
-
-    </script>
-
 }

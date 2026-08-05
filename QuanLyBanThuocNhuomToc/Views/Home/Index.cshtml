@@ -2,51 +2,120 @@
 
 @{
     ViewData["Title"] = "Trang chủ";
+    var danhMucList = ViewBag.DanhMucList as List<QuanLyBanThuocNhuomToc.Models.DanhMucSanPham>;
 }
 
-<!-- Banner -->
+<!-- ===== HERO BANNER ===== -->
 <div class="hero text-center text-white">
     <div class="container">
-        <h1 class="display-4 fw-bold">THUỐC NHUỘM TÓC CHUẨN SALON</h1>
-        <p class="lead">
-            Màu nhuộm thời trang • Chính hãng • An toàn cho tóc
+        <span class="badge bg-warning text-dark px-3 py-2 mb-3 fs-6 rounded-pill">
+            ✨ Chính hãng 100% • Giao hàng toàn quốc
+        </span>
+        <h1 class="display-4 fw-bold mb-3">THUỐC NHUỘM TÓC CHUẨN SALON</h1>
+        <p class="lead mb-4">
+            Màu nhuộm thời trang • An toàn cho tóc • Phủ bạc tự nhiên
         </p>
-
-        <a asp-controller="SanPham"
-           asp-action="Index"
-           class="btn btn-warning btn-lg mt-3">
-            Xem Sản Phẩm
-        </a>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a asp-controller="SanPham" asp-action="Index" class="btn btn-warning btn-lg px-4 fw-bold">
+                🛍️ Xem Sản Phẩm
+            </a>
+            <a asp-controller="DanhMuc" asp-action="Index" class="btn btn-outline-light btn-lg px-4">
+                Xem Danh Mục
+            </a>
+        </div>
     </div>
 </div>
 
-<div class="container py-5">
+    <!-- ===== VÌ SAO CHỌN CHÚNG TÔI ===== -->
+    <div class="row text-center g-4 mb-5">
+        <div class="col-md-3 col-6">
+            <div class="feature-box p-3">
+                <div class="feature-icon mb-2">🚚</div>
+                <h6 class="fw-bold mb-1">Giao hàng nhanh</h6>
+                <small class="text-muted">Nội thành 2h, toàn quốc 2-4 ngày</small>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="feature-box p-3">
+                <div class="feature-icon mb-2">✅</div>
+                <h6 class="fw-bold mb-1">Chính hãng 100%</h6>
+                <small class="text-muted">Cam kết nguồn gốc rõ ràng</small>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="feature-box p-3">
+                <div class="feature-icon mb-2">🌿</div>
+                <h6 class="fw-bold mb-1">An toàn da đầu</h6>
+                <small class="text-muted">Thành phần thảo dược dịu nhẹ</small>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="feature-box p-3">
+                <div class="feature-icon mb-2">💬</div>
+                <h6 class="fw-bold mb-1">Tư vấn miễn phí</h6>
+                <small class="text-muted">Hỗ trợ chọn màu phù hợp</small>
+            </div>
+        </div>
+    </div>
 
+    <!-- ===== DANH MỤC NỔI BẬT ===== -->
+    @if (danhMucList != null && danhMucList.Any())
+    {
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">DANH MỤC SẢN PHẨM</h2>
+            <hr class="w-25 mx-auto">
+        </div>
+
+        <div class="row g-3 mb-5">
+            @foreach (var dm in danhMucList)
+            {
+                <div class="col-md-3 col-6">
+                    <a asp-controller="SanPham" asp-action="Index" asp-route-maDanhMuc="@dm.MaDanhMuc"
+                       class="text-decoration-none">
+                        <div class="category-card text-center p-4 shadow-sm">
+                            <div class="fs-1 mb-2">🎨</div>
+                            <h6 class="fw-bold text-dark mb-0">@dm.TenDanhMuc</h6>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+
+    <!-- ===== SẢN PHẨM NỔI BẬT ===== -->
     <div class="text-center mb-5">
         <h2 class="fw-bold">SẢN PHẨM NỔI BẬT</h2>
         <hr class="w-25 mx-auto">
     </div>
 
     <div class="row g-4">
-
         @foreach (var item in Model)
         {
             <div class="col-lg-4 col-md-6">
+                <div class="card h-100 product shadow-sm border-0">
 
-                <div class="card h-100 product shadow-sm">
+                    <div class="position-relative">
+                        <img src="~/images/@(string.IsNullOrEmpty(item.HinhAnh) ? "no-image.png" : item.HinhAnh)"
+                             class="card-img-top"
+                             style="height:280px;object-fit:cover;"
+                             onerror="this.src='/images/no-image.png'"
+                             alt="@item.TenSanPham" />
 
-                    <img src="~/images/@(string.IsNullOrEmpty(item.HinhAnh) ? "no-image.png" : item.HinhAnh)"
-                         class="card-img-top"
-                         style="height:280px;object-fit:cover;"
-                         alt="@item.TenSanPham" />
+                        @if (item.SoLuongTon <= 20)
+                        {
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-2">Sắp hết hàng</span>
+                        }
+                    </div>
 
                     <div class="card-body">
+
+                        <span class="badge bg-info text-dark mb-2">@item.DanhMucSanPham?.TenDanhMuc</span>
 
                         <h5 class="fw-bold">
                             @item.TenSanPham
                         </h5>
 
-                        <p class="text-muted">
+                        <p class="text-muted small">
                             @if (!string.IsNullOrEmpty(item.MoTaSanPham))
                             {
                                 @(item.MoTaSanPham.Length > 80
@@ -59,36 +128,49 @@
                             }
                         </p>
 
-                        <h4 class="text-danger fw-bold">
+                        <h4 class="text-danger fw-bold mb-0">
                             @item.GiaBan.ToString("N0") VNĐ
                         </h4>
 
                     </div>
 
-                    <div class="card-footer bg-white border-0">
+                    <div class="card-footer bg-white border-0 pt-0">
 
                         <div class="d-grid gap-2">
 
                             <a asp-controller="SanPham"
-                               asp-action="Details"
+                               asp-action="ChiTiet"
                                asp-route-id="@item.MaSanPham"
-                               class="btn btn-primary">
+                               class="btn btn-outline-primary">
                                 Chi Tiết
                             </a>
 
-                            <button class="btn btn-success">
-                                🛒 Thêm Giỏ Hàng
-                            </button>
+                            <form asp-controller="GioHang" asp-action="ThemVaoGio" method="post">
+                                <input type="hidden" name="maSanPham" value="@item.MaSanPham" />
+                                <input type="hidden" name="soLuong" value="1" />
+                                <button type="submit" class="btn btn-success w-100">
+                                    🛒 Thêm Giỏ Hàng
+                                </button>
+                            </form>
 
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
         }
-
     </div>
+
+    <!-- ===== CAM KẾT / NEWSLETTER ===== -->
+<div class="text-center text-white mt-5 p-5 rounded-4"
+     style="background: linear-gradient(135deg, #201A2B 0%, #3a2f4d 100%);">
+    <h3 class="fw-bold mb-2">Đăng ký nhận ưu đãi mới nhất</h3>
+    <p class="mb-4">Nhận mã giảm giá và thông tin sản phẩm mới qua email</p>
+    <form class="d-flex justify-content-center gap-2 flex-wrap" onsubmit="return false;">
+        <input type="email" class="form-control w-auto" placeholder="Nhập email của bạn" style="min-width:280px;">
+        <button class="btn btn-warning fw-bold px-4">Đăng ký</button>
+    </form>
+</div>
 
 </div>

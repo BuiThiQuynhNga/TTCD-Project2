@@ -4,136 +4,316 @@
     ViewData["Title"] = "Quản lý sản phẩm";
 }
 
-<div class="container py-4">
+<style>
+    .sp-page {
+        --hd-primary: #2F5D62;
+        --hd-primary-dark: #22454A;
+        --hd-accent: #C97B4A;
+        --hd-bg: #F7F7F5;
+        --hd-card: #FFFFFF;
+        --hd-text: #24262B;
+        --hd-muted: #6B7076;
+        --hd-border: #E7E5E1;
+        padding: 40px 0 60px;
+    }
 
-    <div class="card shadow border-0">
+    .sp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
 
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">
-                📦 Quản Lý Sản Phẩm
-            </h3>
+        .sp-header .sp-eyebrow {
+            font-size: 0.78rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--hd-muted);
+            font-weight: 600;
+        }
 
-            <a asp-action="Them" class="btn btn-light">
-                ➕ Thêm sản phẩm
-            </a>
+        .sp-header h1 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--hd-text);
+            margin: 4px 0 0;
+        }
+
+    .sp-btn-add {
+        background: var(--hd-primary);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 9px 18px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: background .15s ease;
+    }
+
+        .sp-btn-add:hover {
+            background: var(--hd-primary-dark);
+            color: #fff;
+        }
+
+    .sp-alert {
+        background: #E7F0EF;
+        color: var(--hd-primary-dark);
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 16px;
+    }
+
+        .sp-alert.err {
+            background: #F7E9E7;
+            color: #9A3E33;
+        }
+
+    .sp-table-wrap {
+        background: var(--hd-card);
+        border: 1px solid var(--hd-border);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .sp-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+    }
+
+        .sp-table thead {
+            background: #F1F0EE;
+        }
+
+            .sp-table thead th {
+                text-align: left;
+                font-weight: 700;
+                color: var(--hd-text);
+                padding: 14px 16px;
+                font-size: 0.82rem;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                border-bottom: 1px solid var(--hd-border);
+                white-space: nowrap;
+            }
+
+        .sp-table tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--hd-border);
+            color: var(--hd-text);
+            vertical-align: middle;
+        }
+
+        .sp-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .sp-table tbody tr {
+            transition: background .15s ease;
+        }
+
+            .sp-table tbody tr:hover {
+                background: #FAFAF8;
+            }
+
+    .sp-id {
+        color: var(--hd-muted);
+        font-weight: 600;
+    }
+
+    .sp-thumb {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid var(--hd-border);
+        display: block;
+    }
+
+    .sp-name {
+        font-weight: 700;
+        color: var(--hd-text);
+    }
+
+    .sp-color {
+        display: inline-block;
+        background: #F1F0EE;
+        color: var(--hd-muted);
+        font-weight: 600;
+        font-size: 0.78rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+    }
+
+    .sp-price {
+        font-weight: 700;
+        color: var(--hd-accent);
+        white-space: nowrap;
+    }
+
+    .sp-stock {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+        .sp-stock.cao {
+            background: #E7F0EF;
+            color: var(--hd-primary-dark);
+        }
+
+        .sp-stock.vua {
+            background: #FBEFDD;
+            color: #9A6A1E;
+        }
+
+        .sp-stock.thap {
+            background: #F7E9E7;
+            color: #9A3E33;
+        }
+
+    .sp-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .sp-btn {
+        border: none;
+        border-radius: 8px;
+        padding: 7px 12px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: background .15s ease, color .15s ease, border-color .15s ease;
+    }
+
+        .sp-btn.edit {
+            background: transparent;
+            border: 1.5px solid var(--hd-primary);
+            color: var(--hd-primary);
+        }
+
+            .sp-btn.edit:hover {
+                background: var(--hd-primary);
+                color: #fff;
+            }
+
+        .sp-btn.del {
+            background: transparent;
+            border: 1.5px solid #C0524A;
+            color: #C0524A;
+        }
+
+            .sp-btn.del:hover {
+                background: #C0524A;
+                color: #fff;
+            }
+
+    @@media (max-width: 1000px) {
+        .sp-table-wrap {
+            overflow-x: auto;
+        }
+
+        .sp-table {
+            min-width: 860px;
+        }
+    }
+</style>
+
+<div class="container sp-page">
+    <div class="sp-header">
+        <div>
+            <div class="sp-eyebrow">Vận hành</div>
+            <h1>Quản lý sản phẩm</h1>
         </div>
+        <a asp-action="Them" class="sp-btn-add">+ Thêm sản phẩm</a>
+    </div>
 
-        <div class="card-body">
+    @if (TempData["ThongBao"] != null)
+    {
+        <div class="sp-alert">@TempData["ThongBao"]</div>
+    }
+    @if (TempData["LoiXoa"] != null)
+    {
+        <div class="sp-alert err">@TempData["LoiXoa"]</div>
+    }
 
-            <table class="table table-hover align-middle">
-
-                <thead class="table-dark text-center">
-
+    @if (!Model.Any())
+    {
+        <div class="sp-empty" style="background:var(--hd-card);border:1px dashed var(--hd-border);border-radius:16px;padding:48px 24px;text-align:center;color:var(--hd-muted);">
+            Chưa có sản phẩm nào.
+        </div>
+    }
+    else
+    {
+        <div class="sp-table-wrap">
+            <table class="sp-table">
+                <thead>
                     <tr>
-                        <th width="60">ID</th>
-                        <th width="100">Ảnh</th>
+                        <th>Mã SP</th>
+                        <th>Ảnh</th>
                         <th>Tên sản phẩm</th>
                         <th>Danh mục</th>
                         <th>Mã màu</th>
                         <th>Giá bán</th>
                         <th>Tồn kho</th>
-                        <th width="180">Thao tác</th>
+                        <th style="width: 180px">Thao tác</th>
                     </tr>
-
                 </thead>
-
                 <tbody>
-
                     @foreach (var item in Model)
                     {
                         <tr>
-
-                            <td class="text-center">
-                                @item.MaSanPham
-                            </td>
-
-                            <td class="text-center">
-
+                            <td class="sp-id">#@item.MaSanPham</td>
+                            <td>
                                 <img src="~/images/@(string.IsNullOrEmpty(item.HinhAnh) ? "no-image.png" : item.HinhAnh)"
-                                     width="70"
-                                     height="70"
-                                     style="object-fit:cover;border-radius:10px"
-                                     onerror="this.src='/images/no-image.png'">
-
+                                     class="sp-thumb"
+                                     onerror="this.src='/images/no-image.png'" />
                             </td>
-
+                            <td class="sp-name">@item.TenSanPham</td>
+                            <td>@item.DanhMucSanPham?.TenDanhMuc</td>
+                            <td><span class="sp-color">@item.MaMau</span></td>
+                            <td class="sp-price">@item.GiaBan.ToString("N0") đ</td>
                             <td>
-
-                                <strong>
-                                    @item.TenSanPham
-                                </strong>
-
-                            </td>
-
-                            <td>
-
-                                @item.DanhMucSanPham?.TenDanhMuc
-
-                            </td>
-
-                            <td>
-
-                                <span class="badge bg-secondary">
-                                    @item.MaMau
-                                </span>
-
-                            </td>
-
-                            <td class="text-danger fw-bold">
-
-                                @item.GiaBan.ToString("N0") VNĐ
-
-                            </td>
-
-                            <td>
-
                                 @if (item.SoLuongTon > 100)
                                 {
-                                    <span class="badge bg-success">
-                                        Còn @item.SoLuongTon
-                                    </span>
+                                    <span class="sp-stock cao">Còn @item.SoLuongTon</span>
                                 }
                                 else if (item.SoLuongTon > 20)
                                 {
-                                    <span class="badge bg-warning text-dark">
-                                        Còn @item.SoLuongTon
-                                    </span>
+                                    <span class="sp-stock vua">Còn @item.SoLuongTon</span>
                                 }
                                 else
                                 {
-                                    <span class="badge bg-danger">
-                                        Sắp hết (@item.SoLuongTon)
-                                    </span>
+                                    <span class="sp-stock thap">Sắp hết (@item.SoLuongTon)</span>
                                 }
-
                             </td>
-
-                            <td class="text-center">
-
-                                <a asp-action="Sua"
-                                   asp-route-id="@item.MaSanPham"
-                                   class="btn btn-warning btn-sm">
-                                    ✏️ Sửa
-                                </a>
-
-                                <a asp-action="Xoa"
-                                   asp-route-id="@item.MaSanPham"
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">
-                                    🗑 Xóa
-                                </a>
-
+                            <td>
+                                <div class="sp-actions">
+                                    <a asp-action="Sua" asp-route-id="@item.MaSanPham" class="sp-btn edit">Sửa</a>
+                                    <form asp-action="Xoa" asp-route-id="@item.MaSanPham" method="post" class="d-inline"
+                                          onsubmit="return confirm('Bạn có chắc muốn xóa sản phẩm này?');">
+                                        <button type="submit" class="sp-btn del">Xóa</button>
+                                    </form>
+                                </div>
                             </td>
-
                         </tr>
                     }
-
                 </tbody>
-
             </table>
-
         </div>
-
-    </div>
-
+    }
 </div>

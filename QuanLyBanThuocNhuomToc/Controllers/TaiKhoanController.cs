@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyBanThuocNhuomToc.Data;
@@ -73,21 +74,17 @@ namespace QuanLyBanThuocNhuomToc.Controllers
 
             // Tạo danh sách thông tin người dùng lưu vào Cookie
             var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, user.HoTen),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.VaiTro), // Phân quyền: "Quản trị" hoặc "Khách hàng"
-                new Claim("MaNguoiDung", user.MaNguoiDung.ToString())
-            };
+    {
+        new Claim(ClaimTypes.Name, user.HoTen),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim(ClaimTypes.Role, user.VaiTro), // Phân quyền: "Quản trị" hoặc "Khách hàng"
+        new Claim("MaNguoiDung", user.MaNguoiDung.ToString())
+    };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
 
-            // Phân hướng dựa theo vai trò
-            if (user.VaiTro == "Quản trị")
-            {
-                return RedirectToAction("Index", "SanPham"); // Hoặc trang Admin dashboard
-            }
+            // Luôn về trang chủ sau khi đăng nhập
             return RedirectToAction("Index", "Home");
         }
 
@@ -102,6 +99,62 @@ namespace QuanLyBanThuocNhuomToc.Controllers
         public IActionResult KhongCoQuyen()
         {
             return View();
+        }
+        // 5. TRANG THÔNG TIN TÀI KHOẢN (Hồ sơ) — yêu cầu đăng nhập
+        [Authorize]
+        public async Task<IActionResult> ThongTin()
+        {
+            var maNguoiDungStr = User.FindFirst("MaNguoiDung")?.Value;
+
+            if (string.IsNullOrEmpty(maNguoiDungStr) || !int.TryParse(maNguoiDungStr, out int maNguoiDung))
+            {
+                return RedirectToAction("DangNhap");
+            }
+
+            var nguoiDung = await _context.NguoiDungs
+                .FirstOrDefaultAsync(u => u.MaNguoiDung == maNguoiDung);
+
+            if (nguoiDung == null)
+            {
+                return NotFound();
+            }
+
+            return View(nguoiDung);
+        }
+        // 6. CẬP NHẬT THÔNG TIN TÀI KHOẢN
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CapNhatThongTin(int maNguoiDung, string hoTen, string? soDienThoai, string? diaChi)
+        {
+            var maNguoiDungClaim = User.FindFirst("MaNguoiDung")?.Value;
+
+            // Chỉ cho phép tự sửa thông tin của chính mình
+            if (string.IsNullOrEmpty(maNguoiDungClaim) || !int.TryParse(maNguoiDungClaim, out int maHienTai) || maHienTai != maNguoiDung)
+            {
+                return Forbid();
+            }
+
+            var nguoiDung = await _context.NguoiDungs.FindAsync(maNguoiDung);
+            if (nguoiDung == null)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(hoTen))
+            {
+                ModelState.AddModelError("", "Họ tên không được để trống.");
+                return View("ThongTin", nguoiDung);
+            }
+
+            nguoiDung.HoTen = hoTen;
+            nguoiDung.SoDienThoai = soDienThoai;
+            nguoiDung.DiaChi = diaChi;
+
+            await _context.SaveChangesAsync();
+
+            TempData["ThongBao"] = "Cập nhật thông tin thành công!";
+            return RedirectToAction("ThongTin");
         }
     }
 }

@@ -1,0 +1,364 @@
+﻿@model QuanLyBanThuocNhuomToc.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Trang quản trị";
+}
+
+<style>
+    .db-page {
+        --hd-primary: #2F5D62;
+        --hd-primary-dark: #22454A;
+        --hd-accent: #C97B4A;
+        --hd-bg: #F7F7F5;
+        --hd-card: #FFFFFF;
+        --hd-text: #24262B;
+        --hd-muted: #6B7076;
+        --hd-border: #E7E5E1;
+        padding: 40px 0 60px;
+    }
+
+    .db-eyebrow {
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--hd-muted);
+        font-weight: 600;
+    }
+
+    .db-title {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: 1.5rem;
+        color: var(--hd-text);
+        margin: 4px 0 24px;
+    }
+
+    .db-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .db-stat {
+        background: var(--hd-card);
+        border: 1px solid var(--hd-border);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .db-stat-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: #E7F0EF;
+        color: var(--hd-primary-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-weight: 700;
+    }
+
+    .db-stat-num {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: 1.4rem;
+        color: var(--hd-text);
+        margin: 0;
+    }
+
+    .db-stat-label {
+        color: var(--hd-muted);
+        font-size: 0.82rem;
+    }
+
+    .db-highlights {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-bottom: 28px;
+    }
+
+    .db-hl {
+        background: var(--hd-card);
+        border: 1px solid var(--hd-border);
+        border-top: 3px solid var(--hd-border);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+    }
+
+        .db-hl.cho {
+            border-top-color: var(--hd-accent);
+        }
+
+        .db-hl.giao {
+            border-top-color: #2A5F8A;
+        }
+
+        .db-hl.doanhthu {
+            border-top-color: var(--hd-primary);
+        }
+
+    .db-hl-num {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 800;
+        font-size: 1.5rem;
+        margin: 0 0 4px;
+        color: var(--hd-text);
+    }
+
+    .db-hl.cho .db-hl-num {
+        color: var(--hd-accent);
+    }
+
+    .db-hl.giao .db-hl-num {
+        color: #2A5F8A;
+    }
+
+    .db-hl.doanhthu .db-hl-num {
+        color: var(--hd-primary);
+    }
+
+    .db-hl-label {
+        color: var(--hd-muted);
+        font-size: 0.85rem;
+        margin-bottom: 12px;
+    }
+
+    .db-hl-btn {
+        display: inline-block;
+        background: var(--hd-primary);
+        color: #fff;
+        border-radius: 8px;
+        padding: 7px 16px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background .15s ease;
+    }
+
+        .db-hl-btn:hover {
+            background: var(--hd-primary-dark);
+            color: #fff;
+        }
+
+    .db-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 20px;
+        align-items: start;
+    }
+
+    .db-panel {
+        background: var(--hd-card);
+        border: 1px solid var(--hd-border);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .db-panel-head {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--hd-border);
+        font-weight: 700;
+        color: var(--hd-text);
+        font-size: 0.95rem;
+    }
+
+    .db-empty {
+        color: var(--hd-muted);
+        padding: 20px;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    .db-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+    }
+
+        .db-table thead th {
+            text-align: left;
+            font-weight: 700;
+            color: var(--hd-muted);
+            padding: 10px 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            background: #F1F0EE;
+        }
+
+        .db-table tbody td {
+            padding: 12px 20px;
+            border-top: 1px solid var(--hd-border);
+            color: var(--hd-text);
+        }
+
+        .db-table tbody tr:hover {
+            background: #FAFAF8;
+        }
+
+        .db-table a {
+            color: var(--hd-primary);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .db-table a:hover {
+                text-decoration: underline;
+            }
+
+    .db-badge {
+        display: inline-block;
+        background: #E4EEF6;
+        color: #2A5F8A;
+        font-weight: 700;
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+
+    .db-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .db-list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+        border-top: 1px solid var(--hd-border);
+        font-size: 0.9rem;
+        color: var(--hd-text);
+    }
+
+        .db-list-item:first-child {
+            border-top: none;
+        }
+
+    .db-stock-badge {
+        display: inline-block;
+        background: #F7E9E7;
+        color: #9A3E33;
+        font-weight: 700;
+        font-size: 0.75rem;
+        padding: 4px 12px;
+        border-radius: 20px;
+        white-space: nowrap;
+    }
+
+    @@media (max-width: 950px) {
+        .db-stats,
+        .db-highlights {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .db-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="container db-page">
+    <div class="db-eyebrow">Quản trị</div>
+    <h1 class="db-title">Bảng điều khiển quản trị</h1>
+
+    <div class="db-stats">
+        <div class="db-stat">
+            <div class="db-stat-icon">SP</div>
+            <p class="db-stat-num">@Model.TongSanPham</p>
+            <div class="db-stat-label">Sản phẩm</div>
+        </div>
+        <div class="db-stat">
+            <div class="db-stat-icon">DM</div>
+            <p class="db-stat-num">@Model.TongDanhMuc</p>
+            <div class="db-stat-label">Danh mục</div>
+        </div>
+        <div class="db-stat">
+            <div class="db-stat-icon">KH</div>
+            <p class="db-stat-num">@Model.TongKhachHang</p>
+            <div class="db-stat-label">Khách hàng</div>
+        </div>
+        <div class="db-stat">
+            <div class="db-stat-icon">DH</div>
+            <p class="db-stat-num">@Model.TongDonHang</p>
+            <div class="db-stat-label">Tổng đơn hàng</div>
+        </div>
+    </div>
+
+    <div class="db-highlights">
+        <div class="db-hl cho">
+            <p class="db-hl-num">@Model.DonChoXacNhan</p>
+            <div class="db-hl-label">Đơn chờ xác nhận</div>
+            <a asp-controller="DonHang" asp-action="Index" class="db-hl-btn">Xử lý ngay</a>
+        </div>
+        <div class="db-hl giao">
+            <p class="db-hl-num">@Model.DonDangGiao</p>
+            <div class="db-hl-label">Đơn đang giao</div>
+        </div>
+        <div class="db-hl doanhthu">
+            <p class="db-hl-num">@Model.DoanhThu.ToString("N0") đ</p>
+            <div class="db-hl-label">Doanh thu (đơn đã giao)</div>
+        </div>
+    </div>
+
+    <div class="db-grid">
+        <div class="db-panel">
+            <div class="db-panel-head">Đơn hàng gần đây</div>
+            @if (!Model.DonHangGanDay.Any())
+            {
+                <p class="db-empty">Chưa có đơn hàng nào.</p>
+            }
+            else
+            {
+                <table class="db-table">
+                    <thead>
+                        <tr>
+                            <th>Mã ĐH</th>
+                            <th>Khách hàng</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var dh in Model.DonHangGanDay)
+                        {
+                            <tr>
+                                <td><a asp-controller="DonHang" asp-action="ChiTiet" asp-route-id="@dh.MaDonHang">#@dh.MaDonHang</a></td>
+                                <td>@dh.NguoiDung?.HoTen</td>
+                                <td>@dh.TongTien.ToString("N0") đ</td>
+                                <td><span class="db-badge">@dh.TrangThaiDonHang</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+
+        <div class="db-panel">
+            <div class="db-panel-head">Sản phẩm sắp hết hàng</div>
+            @if (!Model.SanPhamSapHet.Any())
+            {
+                <p class="db-empty">Không có sản phẩm nào sắp hết.</p>
+            }
+            else
+            {
+                <ul class="db-list">
+                    @foreach (var sp in Model.SanPhamSapHet)
+                    {
+                        <li class="db-list-item">
+                            @sp.TenSanPham
+                            <span class="db-stock-badge">Còn @sp.SoLuongTon</span>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>

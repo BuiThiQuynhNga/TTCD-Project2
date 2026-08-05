@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\CNTT\\Project2\\QuanLyBanThuocNhuomToc\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E6D2F04A-ECB9-9A2D-7DCB-A0F84493D23E}|QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc.csproj|d:\\cntt\\project2\\quanlybanthuocnhuomtoc\\quanlybanthuocnhuomtoc\\models\\sanpham.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D2F04A-ECB9-9A2D-7DCB-A0F84493D23E}|QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc.csproj|solutionrelative:quanlybanthuocnhuomtoc\\models\\sanpham.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6D2F04A-ECB9-9A2D-7DCB-A0F84493D23E}|QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc.csproj|d:\\cntt\\project2\\quanlybanthuocnhuomtoc\\quanlybanthuocnhuomtoc\\views\\adminsanpham\\sua.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E6D2F04A-ECB9-9A2D-7DCB-A0F84493D23E}|QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc.csproj|solutionrelative:quanlybanthuocnhuomtoc\\views\\adminsanpham\\sua.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6D2F04A-ECB9-9A2D-7DCB-A0F84493D23E}|QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc.csproj|d:\\cntt\\project2\\quanlybanthuocnhuomtoc\\quanlybanthuocnhuomtoc\\controllers\\adminsanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6D2F04A-ECB9-9A2D-7DCB-A0F84493D23E}|QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc.csproj|solutionrelative:quanlybanthuocnhuomtoc\\controllers\\adminsanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SanPham.cs",
+              "DocumentMoniker": "D:\\CNTT\\Project2\\QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc\\Models\\SanPham.cs",
+              "RelativeDocumentMoniker": "QuanLyBanThuocNhuomToc\\Models\\SanPham.cs",
+              "ToolTip": "D:\\CNTT\\Project2\\QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc\\Models\\SanPham.cs*",
+              "RelativeToolTip": "QuanLyBanThuocNhuomToc\\Models\\SanPham.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-04T07:21:56.076Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AdminSanPhamController.cs",
+              "DocumentMoniker": "D:\\CNTT\\Project2\\QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc\\Controllers\\AdminSanPhamController.cs",
+              "RelativeDocumentMoniker": "QuanLyBanThuocNhuomToc\\Controllers\\AdminSanPhamController.cs",
+              "ToolTip": "D:\\CNTT\\Project2\\QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc\\Controllers\\AdminSanPhamController.cs",
+              "RelativeToolTip": "QuanLyBanThuocNhuomToc\\Controllers\\AdminSanPhamController.cs",
+              "ViewState": "AgIAAIsAAAAAAAAAAAAkwKEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-04T07:19:41.248Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Sua.cshtml",
+              "DocumentMoniker": "D:\\CNTT\\Project2\\QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc\\Views\\AdminSanPham\\Sua.cshtml",
+              "RelativeDocumentMoniker": "QuanLyBanThuocNhuomToc\\Views\\AdminSanPham\\Sua.cshtml",
+              "ToolTip": "D:\\CNTT\\Project2\\QuanLyBanThuocNhuomToc\\QuanLyBanThuocNhuomToc\\Views\\AdminSanPham\\Sua.cshtml",
+              "RelativeToolTip": "QuanLyBanThuocNhuomToc\\Views\\AdminSanPham\\Sua.cshtml",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAcwNcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-08-04T07:18:48.049Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
